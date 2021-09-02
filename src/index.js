@@ -1,2 +1,2 @@
-import Ship from "./Ship";
+import Ship from "./factories/Ship";
 
