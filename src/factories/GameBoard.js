@@ -54,14 +54,13 @@ let result = []
   for(let i=0;i<board.length;i++){
     board[i].find((ele,index,arr)=> {
       if (ele.tile == coordinate){
-        if(arr[index].shipID != null){
+        if (arr[index].shipID != null){
           shipList.find((ship) => {
            if (ship.id == arr[index].shipID) {
              ship.hit(coordinate);
            }
           })
-          console.log(shipList);
-          }
+        }
         arr[index].isHit = true;
         result.push(arr[index]);
       }
