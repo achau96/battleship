@@ -1,6 +1,6 @@
 //user defines position of ship
 
-const Ship = (position) => {
+const Ship = (position,id) => {
   //position should be an array of coordinates
   const shipArray = [...position];
   let lives = position.length;
@@ -16,7 +16,7 @@ const Ship = (position) => {
    }
    return false;
   }
-  return {hit,isSunk,shipArray}
+  return {hit,isSunk,shipArray,id}
 }
 
 export default Ship;
