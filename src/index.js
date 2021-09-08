@@ -1,2 +1,1 @@
-import Ship from "./factories/Ship";
-
+import './index.css'

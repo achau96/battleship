@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: aquamarine;
+}
+
+.flex-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header {
+  position: sticky;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+.header .logo {
+  margin-left: 15px;
+}
+.header .title {
+  font-size: 32px;
+  margin: 10px 10px;
+  color: blue;
+}
+.header .sign-in {
+  margin-right: 15px;
+}
