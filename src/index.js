@@ -1,10 +1,6 @@
 import './index.css'
 import Game from './Game'
 
-const hitCoordinate = (event) => {
-  console.log(event.target.dataset.value);
-}
-
 const createGameBoard = (size,player) => {
   const gameBoard = document.createElement('div');
   gameBoard.classList.add('gameBoard');

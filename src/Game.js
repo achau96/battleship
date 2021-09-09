@@ -11,6 +11,8 @@ const ships = [
 ];
 
 const hitCoordinate = (event) => {
+  //should send coordinate into player, which goes to board and returns a hit or miss
+  //and effects the DOM accordingly
   console.log(event.target.dataset.value);
 }
 
@@ -33,7 +35,7 @@ enemyBoard.placeShip(...ships[4]);
 const enemyDOM = document.getElementById('enemy');
 const enemyTiles = enemyDOM.querySelectorAll('.tile');
 enemyTiles.forEach((tile) => {
-  tile.addEventListener('click',hitCoordinate);
+  tile.addEventListener('click',hitCoordinate, {once:true});
 })
 //start game
 //game figures out whose turn it is, and waits for event listener if player
