@@ -35,6 +35,12 @@
   margin-top: 5vh;
 }
 
+.turn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .player {
   display: flex;
   flex-direction: column;

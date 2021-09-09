@@ -1,6 +1,11 @@
 import './index.css'
+import Game from './Game'
 
-const createGameBoard = (size) => {
+const hitCoordinate = (event) => {
+  console.log(event.target.dataset.value);
+}
+
+const createGameBoard = (size,player) => {
   const gameBoard = document.createElement('div');
   gameBoard.classList.add('gameBoard');
   gameBoard.setAttribute('style', `grid-template-columns: repeat(${size},1fr);grid-template-rows: repeat(${size},1fr)`)
@@ -9,6 +14,9 @@ const createGameBoard = (size) => {
       const block = document.createElement('div');
       block.dataset.value = `${String.fromCharCode(i+65)}${j+1}`;
       block.classList.add('tile');
+      if(player === 'enemy'){
+      block.addEventListener('click', hitCoordinate);
+      }
       gameBoard.appendChild(block);
     }
   }
@@ -18,12 +26,12 @@ const createGameBoard = (size) => {
 const App = () => {
   const player = document.querySelector('.player');
   const opponent = document.querySelector('.opponent');
-  // player.appendChild(createGameBoard(6));
-  const block = document.createElement('div');
-      block.dataset.value = `${String.fromCharCode(0+65)}${0+1}`;
-      block.classList.add('tile');
-  player.appendChild(createGameBoard(8));
-  opponent.appendChild(createGameBoard(8));
+
+  player.appendChild(createGameBoard(8,'player'),);
+  opponent.appendChild(createGameBoard(8,'enemy'));
+
+  Game();
+
 }
 
 App();
