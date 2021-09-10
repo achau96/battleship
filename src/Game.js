@@ -13,8 +13,6 @@ const Game = () => {
 
 const enemyDOM = document.getElementById('enemy');
 const enemyTiles = enemyDOM.querySelectorAll('.tile');
-const playerDOM = document.getElementById('user');
-const playerTiles = playerDOM.querySelectorAll('.tile');
 
 //start game
 //game figures out whose turn it is, and waits for event listener if player

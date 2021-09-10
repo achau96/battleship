@@ -69,3 +69,7 @@
   cursor: pointer;
   background-color: cadetblue;
 }
+
+.ship {
+  background-color: gray;
+}

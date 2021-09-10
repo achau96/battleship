@@ -45,6 +45,20 @@ enemyBoard.placeShip(...ships[4]);
 return {playerBoard,enemyBoard}
 }
 
+const updateDOM = (playerBoard) => {
+  const playerDOM = document.getElementById('user');
+  const playerTiles = playerDOM.querySelectorAll('.tile');
+  playerTiles.forEach((tile) => {
+    for(let i=0;i<playerBoard.length;i++){
+      playerBoard[i].forEach((shipTile) => {
+        if(shipTile.shipID != null && shipTile.tile === tile.dataset.value){
+          tile.classList.add('ship');
+        }
+      })
+    }
+  })
+}
+
 const App = () => {
   const player = document.querySelector('.player');
   const opponent = document.querySelector('.opponent');
@@ -53,7 +67,7 @@ const App = () => {
   opponent.appendChild(createGameBoard(8,'enemy'));
 
   const {playerBoard,enemyBoard} = initialize();
-  console.log(playerBoard.board);
+  updateDOM(playerBoard.board);
   Game();
 
 }
