@@ -131,6 +131,12 @@
   background-color: maroon;
   color: grey;
 }
+
+.miss {
+  background-color: rgb(10, 90, 125);
+  color: grey;
+}
+
 @media screen and (max-width: 600px) {
   .container {
     flex-direction: column;
