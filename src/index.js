@@ -68,8 +68,7 @@ const App = () => {
 
   const {playerBoard,enemyBoard} = initialize();
   updateDOM(playerBoard.board);
-  Game();
-
+  Game(playerBoard,enemyBoard);
 }
 
 App();
