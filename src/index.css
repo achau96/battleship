@@ -59,17 +59,39 @@
   cursor: crosshair;
 }
 .animate-arrow {
-  animation: blink 1.5s ease-in-out 0s infinite forwards;
+  animation: blink 1s ease-in-out 0s infinite forwards;
 }
 
 @keyframes blink {
   0% {
     background-color: aquamarine;
   }
-  100% {
+  50% {
     background-color: greenyellow;
   }
+  100% {
+    background-color: aquamarine;
+  }
 }
+
+.status {
+  display: none;
+}
+
+.show {
+  display: block;
+  animation: show 2s ease 0s forwards;
+}
+
+@keyframes show {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .player {
   display: flex;
   flex-direction: column;
@@ -92,6 +114,7 @@
   width: 30px;
   height: 30px;
   border: solid 1px black;
+  text-align: center;
 }
 
 .tile:hover {
@@ -102,6 +125,11 @@
 .ship {
   background-color: gray;
   border: solid 1px lightgrey;
+}
+
+.hit {
+  background-color: maroon;
+  color: grey;
 }
 @media screen and (max-width: 600px) {
   .container {
