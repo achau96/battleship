@@ -1,5 +1,14 @@
 import './index.css'
+import GameBoard from './factories/GameBoard';
 import Game from './Game'
+
+const ships = [
+  [false, 5, 'A2','commander'],
+  [true, 4, 'B1','subCommander'],
+  [false,3,'B4','lieutenant'],
+  [true,3,'E3','general'],
+  [false,2,'G6','smallShip']
+];
 
 const createGameBoard = (size,player) => {
   const gameBoard = document.createElement('div');
@@ -17,6 +26,25 @@ const createGameBoard = (size,player) => {
   return gameBoard;
 }
 
+const initialize = () => {
+const playerBoard = GameBoard(8);
+const enemyBoard = GameBoard(8);
+//place ships
+playerBoard.placeShip(...ships[0]);
+playerBoard.placeShip(...ships[1]);
+playerBoard.placeShip(...ships[2]);
+playerBoard.placeShip(...ships[3]);
+playerBoard.placeShip(...ships[4]);
+
+enemyBoard.placeShip(...ships[0]);
+enemyBoard.placeShip(...ships[1]);
+enemyBoard.placeShip(...ships[2]);
+enemyBoard.placeShip(...ships[3]);
+enemyBoard.placeShip(...ships[4]);
+
+return {playerBoard,enemyBoard}
+}
+
 const App = () => {
   const player = document.querySelector('.player');
   const opponent = document.querySelector('.opponent');
@@ -24,6 +52,8 @@ const App = () => {
   player.appendChild(createGameBoard(8,'user'),);
   opponent.appendChild(createGameBoard(8,'enemy'));
 
+  const {playerBoard,enemyBoard} = initialize();
+  console.log(playerBoard.board);
   Game();
 
 }
