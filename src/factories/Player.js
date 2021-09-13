@@ -31,13 +31,13 @@ const Player = () => {
     while(spotHit(target,enemyBoard.board)[0] == true) {
       target = randomCoordinate(enemyBoard.board.length);
     }
-    console.log(target)
     const status = enemyBoard.receiveAttack(target);
-    if (status.shipID === null){
-      return 'missed';
-    } else {
-      return 'hit';
-    }
+    // if (status.shipID === null){
+    //   return 'missed';
+    // } else {
+    //   return 'hit';
+    // }
+    return target;
   }
   return {move, randomMove}
 }

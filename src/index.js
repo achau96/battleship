@@ -5,9 +5,9 @@ import Game from './Game'
 const ships = [
   [false, 5, 'A2','commander'],
   [true, 4, 'B1','subCommander'],
-  [false,3,'B4','lieutenant'],
-  [true,3,'E3','general'],
-  [false,2,'G6','smallShip']
+  [false, 3,'B4','lieutenant'],
+  [true, 3,'E3','general'],
+  [false, 2,'G6','smallShip']
 ];
 
 const createGameBoard = (size,player) => {
