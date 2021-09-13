@@ -17,21 +17,23 @@ const Player = () => {
     }
   }
 //player should attack a coordinate
-  const move = (boardStatus) => {
-    if (boardStatus.shipID == null) {
+  const move = (coordinate,enemyBoard) => {
+    const status = enemyBoard.receiveAttack(coordinate);
+    if (status.shipID === null) {
       return 'missed'
     }
     return 'hit';
   }
 
-  const randomMove = (board,receiveAttack) => {
-    let target = 'B3';
-
-    while(spotHit(target,board)[0] == true) {
-      target = randomCoordinate(board.length);
+  const randomMove = (enemyBoard) => {
+    //let target = 'B3'; //my version of mock
+    let target = randomCoordinate(enemyBoard.board.length);
+    while(spotHit(target,enemyBoard.board)[0] == true) {
+      target = randomCoordinate(enemyBoard.board.length);
     }
-    console.log(target);
-    if (spotHit(target,board)[1] == null){
+    console.log(target)
+    const status = enemyBoard.receiveAttack(target);
+    if (status.shipID === null){
       return 'missed';
     } else {
       return 'hit';

@@ -30,20 +30,20 @@ const hitCoordinate = (event,enemyBoard) => {
   },10)
 }
 
+
 const Game = (playerBoard,enemyBoard) => {
 const player = Player();
 const AI = Player();
-let turn = 'player';
 const enemyDOM = document.getElementById('enemy');
 const enemyTiles = enemyDOM.querySelectorAll('.tile');
-
+//listener callback to clean up listener or remove depending on turn
+const doClick = (event) => hitCoordinate(event,enemyBoard.board);
 //game figures out whose turn it is, and waits for event listener if player
 //or makes random move if opponent
-if(turn === 'player'){
   enemyTiles.forEach((tile) => {
-    tile.addEventListener('click',(event) => hitCoordinate(event,enemyBoard.board), {once:true});
+    tile.addEventListener('click',doClick, {once:true});
   })
-}
+
 
 //Check status if ship is hit, check if all ships are sunk and display winner
 }

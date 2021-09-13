@@ -62,7 +62,7 @@ let result = undefined;
           })
         }
         arr[index].isHit = true;
-        result =arr[index];
+        result = arr[index];
       }
     })
   }
