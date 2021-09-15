@@ -8,7 +8,9 @@ const ships = [
   [false, 3,'B4','lieutenant'],
   [true, 3,'E3','general'],
   [false, 2,'G6','smallShip']
-];
+]; //want random coordinate and no overlap
+
+
 
 const createGameBoard = (size,player) => {
   const gameBoard = document.createElement('div');
@@ -26,6 +28,27 @@ const createGameBoard = (size,player) => {
   return gameBoard;
 }
 
+const randomShipPlace = (board) => {
+  const rand50 = () => (Math.random() < 0.5); //for isRotated
+  const randomCoordinate = (ySize = 8,xSize = 8) => { //used for placement coordinate
+    console.log(xSize)
+    console.log(ySize)
+    const random = `${String.fromCharCode(Math.floor(Math.random()*xSize)+65)}${Math.floor(Math.random()*ySize)+1}`;
+  return random;
+  }
+//first length is 5, 'commander'
+const shipOrientation = rand50()
+let length = 5;
+let coordinate;
+if (shipOrientation === true) {
+  coordinate = randomCoordinate(8-length,);
+  console.log(coordinate);
+} else {
+  coordinate = randomCoordinate(,8-length);
+  console.log(coordinate);
+}
+}
+
 const initialize = () => {
 const playerBoard = GameBoard(8);
 const enemyBoard = GameBoard(8);
@@ -41,7 +64,7 @@ enemyBoard.placeShip(...ships[1]);
 enemyBoard.placeShip(...ships[2]);
 enemyBoard.placeShip(...ships[3]);
 enemyBoard.placeShip(...ships[4]);
-
+//create a randomized ship placement
 return {playerBoard,enemyBoard}
 }
 
