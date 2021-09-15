@@ -96,19 +96,15 @@ const GameBoard = (size) => {
       } else {
         coordinate = randomCoordinate(undefined, 8 - length + 1);
       }
-      console.log(shipOrientation);
-      console.log(coordinate);
       for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board.length; j++) {
           if (board[i][j].tile === coordinate) {
             for (let k = 0; k < length; k++) {
               if (shipOrientation === true) {
-                console.log(board[i + k][j].shipID);
                 if (board[i + k][j].shipID !== null) {
                   hasShip = true;
                 }
               } else if (shipOrientation === false) {
-                console.log('hello');
                 if (board[i][j + k].shipID !== null) {
                   hasShip = true;
                 }
@@ -121,7 +117,6 @@ const GameBoard = (size) => {
         flag = false;
       }
     }
-    console.log(coordinate);
     placeShip(shipOrientation, length, coordinate, title);
   };
 

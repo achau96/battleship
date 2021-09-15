@@ -94,6 +94,22 @@
   display: none;
 }
 
+.start {
+  justify-self: flex-end;
+  border: 1px solid green;
+  background: limegreen;
+  padding: 10px;
+  border-radius: 15px;
+  margin-top: 20px;
+  transition: 0.5s all ease-in-out;
+}
+
+.start:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  background-color: rgb(14, 155, 14);
+}
+
 .show {
   display: block;
   animation: show 2s ease 0s forwards;
@@ -166,5 +182,8 @@
   }
   .opponent {
     margin-bottom: 20px;
+  }
+  .start {
+    margin-top: 5px;
   }
 }

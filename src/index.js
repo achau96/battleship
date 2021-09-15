@@ -71,7 +71,14 @@ const App = () => {
 
   const { playerBoard, enemyBoard } = initialize();
   updateDOM(playerBoard.board);
-  Game(playerBoard, enemyBoard);
+
+  const start = document.querySelector('.start');
+  const playerTurn = document.querySelector('.playerTurn');
+
+  start.addEventListener('click', () => {
+    playerTurn.classList.add('animate-arrow');
+    Game(playerBoard, enemyBoard);
+  });
 };
 
 App();
