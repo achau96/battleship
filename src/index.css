@@ -129,6 +129,20 @@
   flex-direction: column;
   align-items: center;
 }
+.rotateButton {
+  font-size: 20px;
+  border: 1px solid blue;
+  background: grey;
+  color: whitesmoke;
+  padding: 10px;
+  border-radius: 25px;
+  margin-top: 20px;
+  transition: 0.4s all ease-in-out;
+}
+.rotateButton:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
 .opponent {
   display: flex;
   flex-direction: column;
@@ -152,6 +166,10 @@
 .tile:hover {
   cursor: pointer;
   background-color: cadetblue;
+}
+
+.selected {
+  background: cadetblue;
 }
 
 .ship {

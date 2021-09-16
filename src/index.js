@@ -2,13 +2,13 @@ import './index.css';
 import GameBoard from './factories/GameBoard';
 import Game from './Game';
 
-const ships = [
-  [false, 5, 'A2', 'commander'],
-  [true, 4, 'B1', 'subCommander'],
-  [false, 3, 'B4', 'lieutenant'],
-  [true, 3, 'E3', 'general'],
-  [false, 2, 'G6', 'smallShip'],
-]; //want random coordinate and no overlap
+// const ships = [
+//   [false, 5, 'A2', 'commander'],
+//   [true, 4, 'B1', 'subCommander'],
+//   [false, 3, 'B4', 'lieutenant'],
+//   [true, 3, 'E3', 'general'],
+//   [false, 2, 'G6', 'smallShip'],
+// ]; //want random coordinate and no overlap
 
 const createGameBoard = (size, player) => {
   const gameBoard = document.createElement('div');
@@ -29,25 +29,6 @@ const createGameBoard = (size, player) => {
   return gameBoard;
 };
 
-const initialize = () => {
-  const playerBoard = GameBoard(8);
-  const enemyBoard = GameBoard(8);
-  //place ships
-  playerBoard.randomShipPlace(5, 'commander');
-  playerBoard.randomShipPlace(4, 'subCommander');
-  playerBoard.randomShipPlace(3, 'general');
-  playerBoard.randomShipPlace(3, 'lieutenant');
-  playerBoard.randomShipPlace(2, 'smallShip');
-
-  enemyBoard.placeShip(...ships[0]);
-  enemyBoard.placeShip(...ships[1]);
-  enemyBoard.placeShip(...ships[2]);
-  enemyBoard.placeShip(...ships[3]);
-  enemyBoard.placeShip(...ships[4]);
-  //create a randomized ship placement
-  return { playerBoard, enemyBoard };
-};
-
 const updateDOM = (playerBoard) => {
   const playerDOM = document.getElementById('user');
   const playerTiles = playerDOM.querySelectorAll('.tile');
@@ -62,12 +43,66 @@ const updateDOM = (playerBoard) => {
   });
 };
 
+const lightShip = (event) => {
+  // console.log(event.target.dataset.value);
+};
+
+const placeTheShip = (event, rotated, playerBoard) => {
+  playerBoard.placeShip(rotated, 5, event.target.dataset.value, 'commander');
+  updateDOM(playerBoard.board);
+  console.log(playerBoard.board);
+};
+
+const initialize = () => {
+  const placeShipHolder = (event) => {
+    placeTheShip(event, rotated, playerBoard);
+  };
+
+  const playerBoard = GameBoard(8);
+  const enemyBoard = GameBoard(8);
+  let rotated = false;
+  //place ships
+  const ships = [
+    [5, 'commander'],
+    [4, 'subCommander'],
+    [3, 'general'],
+    [3, 'lieutenant'],
+    [2, 'smallShip'],
+  ];
+  const rotateButton = document.querySelector('.rotateButton');
+  const player = document.getElementById('user');
+  const playerTiles = player.querySelectorAll('.tile');
+  rotateButton.addEventListener('click', () => {
+    rotated = !rotated;
+  });
+
+  playerTiles.forEach((tile) => {
+    tile.addEventListener('mouseover', lightShip);
+  });
+  playerTiles.forEach((tile) => {
+    tile.addEventListener('click', placeShipHolder);
+  });
+
+  enemyBoard.randomShipPlace(5, 'commander');
+  enemyBoard.randomShipPlace(4, 'subCommander');
+  enemyBoard.randomShipPlace(3, 'general');
+  enemyBoard.randomShipPlace(3, 'lieutenant');
+  enemyBoard.randomShipPlace(2, 'smallShip');
+  //create a randomized ship placement
+  return { playerBoard, enemyBoard };
+};
+
 const App = () => {
   const player = document.querySelector('.player');
   const opponent = document.querySelector('.opponent');
 
   player.appendChild(createGameBoard(8, 'user'));
   opponent.appendChild(createGameBoard(8, 'enemy'));
+
+  const rotateButton = document.createElement('div');
+  rotateButton.textContent = 'Rotate';
+  rotateButton.classList.add('rotateButton');
+  player.appendChild(rotateButton);
 
   const { playerBoard, enemyBoard } = initialize();
   updateDOM(playerBoard.board);
