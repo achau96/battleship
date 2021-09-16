@@ -47,20 +47,16 @@ const lightShip = (event) => {
   // console.log(event.target.dataset.value);
 };
 
-const placeTheShip = (event, rotated, playerBoard) => {
-  playerBoard.placeShip(rotated, 5, event.target.dataset.value, 'commander');
+const placeTheShip = (event, rotated, playerBoard, length, title) => {
+  playerBoard.placeShip(rotated, length, event.target.dataset.value, title);
   updateDOM(playerBoard.board);
-  console.log(playerBoard.board);
 };
 
 const initialize = () => {
-  const placeShipHolder = (event) => {
-    placeTheShip(event, rotated, playerBoard);
-  };
-
   const playerBoard = GameBoard(8);
   const enemyBoard = GameBoard(8);
   let rotated = false;
+  let i = 0;
   //place ships
   const ships = [
     [5, 'commander'],
@@ -69,6 +65,15 @@ const initialize = () => {
     [3, 'lieutenant'],
     [2, 'smallShip'],
   ];
+  const status = () => {
+    if (i === ships.length) {
+      console.log(i);
+      console.log(ships.length);
+      return true;
+    }
+    return false;
+  };
+
   const rotateButton = document.querySelector('.rotateButton');
   const player = document.getElementById('user');
   const playerTiles = player.querySelectorAll('.tile');
@@ -76,6 +81,15 @@ const initialize = () => {
     rotated = !rotated;
   });
 
+  const placeShipHolder = (event) => {
+    placeTheShip(event, rotated, playerBoard, ships[i][0], ships[i][1]);
+    i++;
+    if (i === 5) {
+      playerTiles.forEach((tile) => {
+        tile.removeEventListener('click', placeShipHolder);
+      });
+    }
+  };
   playerTiles.forEach((tile) => {
     tile.addEventListener('mouseover', lightShip);
   });
@@ -89,7 +103,7 @@ const initialize = () => {
   enemyBoard.randomShipPlace(3, 'lieutenant');
   enemyBoard.randomShipPlace(2, 'smallShip');
   //create a randomized ship placement
-  return { playerBoard, enemyBoard };
+  return { playerBoard, enemyBoard, status };
 };
 
 const App = () => {
@@ -104,15 +118,19 @@ const App = () => {
   rotateButton.classList.add('rotateButton');
   player.appendChild(rotateButton);
 
-  const { playerBoard, enemyBoard } = initialize();
-  updateDOM(playerBoard.board);
+  const { playerBoard, enemyBoard, status } = initialize();
+  // updateDOM(playerBoard.board);
 
   const start = document.querySelector('.start');
   const playerTurn = document.querySelector('.playerTurn');
 
   start.addEventListener('click', () => {
     playerTurn.classList.add('animate-arrow');
-    Game(playerBoard, enemyBoard);
+    if (status() === true) {
+      Game(playerBoard, enemyBoard);
+    } else if (status() === false) {
+      console.log('not all ships placed yet');
+    }
   });
 };
 
