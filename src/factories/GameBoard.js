@@ -69,6 +69,17 @@ const GameBoard = (size) => {
     return result;
   };
 
+  const checkCoordinate = (coord) => {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length; j++) {
+        //could use findIndex instead of another for loop
+        if (board[i][j].tile === coord) {
+          return board[i][j];
+        }
+      }
+    }
+  };
+
   const allShipStatus = () => {
     return shipList.every((ship) => ship.isSunk());
   };
@@ -127,6 +138,7 @@ const GameBoard = (size) => {
     receiveAttack,
     allShipStatus,
     randomShipPlace,
+    checkCoordinate,
   };
 };
 

@@ -51,3 +51,12 @@ test('Place random ship', () => {
 
   console.log(newGame.board);
 });
+
+test('Check Coordinate', () => {
+  const newGame = GameBoard(8);
+  expect(newGame.checkCoordinate('C4')).toStrictEqual({
+    tile: 'C4',
+    shipID: null,
+    isHit: false,
+  });
+});

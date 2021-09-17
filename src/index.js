@@ -43,8 +43,44 @@ const updateDOM = (playerBoard) => {
   });
 };
 
-const lightShip = (event) => {
-  // console.log(event.target.dataset.value);
+const lightShip = (event, rotated, length) => {
+  let coord = event.target.dataset.value;
+
+  for (let i = 0; i < length; i++) {
+    const coordSplit = coord.split('');
+    if (rotated && Number(coord.charCodeAt(0)) + i < 73) {
+      coordSplit[0] = String.fromCharCode(Number(coord.charCodeAt(0)) + i);
+      const lightUpCoord = document.querySelector(
+        `[data-value=${coordSplit.join('')}]`
+      );
+      lightUpCoord.classList.add('selected');
+    } else if (!rotated && Number(coord.charAt(1)) + i < 9) {
+      coordSplit[1] = Number(coord.charAt(1)) + i;
+      const lightUpCoord = document.querySelector(
+        `[data-value=${coordSplit.join('')}]`
+      );
+      lightUpCoord.classList.add('selected');
+    }
+  }
+};
+const unLightShip = (event, rotated, length) => {
+  let coord = event.target.dataset.value;
+  for (let i = 0; i < length; i++) {
+    const coordSplit = coord.split('');
+    if (rotated && Number(coord.charCodeAt(0)) + i < 73) {
+      coordSplit[0] = String.fromCharCode(Number(coord.charCodeAt(0)) + i);
+      const lightUpCoord = document.querySelector(
+        `[data-value=${coordSplit.join('')}]`
+      );
+      lightUpCoord.classList.remove('selected');
+    } else if (!rotated && Number(coord.charAt(1)) + i < 9) {
+      coordSplit[1] = Number(coord.charAt(1)) + i;
+      const lightUpCoord = document.querySelector(
+        `[data-value=${coordSplit.join('')}]`
+      );
+      lightUpCoord.classList.remove('selected');
+    }
+  }
 };
 
 const placeTheShip = (event, rotated, playerBoard, length, title) => {
@@ -56,7 +92,7 @@ const initialize = () => {
   const playerBoard = GameBoard(8);
   const enemyBoard = GameBoard(8);
   let rotated = false;
-  let i = 0;
+  let currShip = 0;
   //place ships
   const ships = [
     [5, 'commander'],
@@ -66,9 +102,7 @@ const initialize = () => {
     [2, 'smallShip'],
   ];
   const status = () => {
-    if (i === ships.length) {
-      console.log(i);
-      console.log(ships.length);
+    if (currShip >= ships.length) {
       return true;
     }
     return false;
@@ -81,17 +115,71 @@ const initialize = () => {
     rotated = !rotated;
   });
 
+  const removeHighlightHolder = (event) => {
+    if (currShip >= 5) {
+      playerTiles.forEach((tile) => {
+        tile.removeEventListener('mouseout', removeHighlightHolder);
+      });
+    }
+    unLightShip(event, rotated, ships[currShip][0]);
+  };
+  const lightShipHolder = (event) => {
+    if (currShip >= 5) {
+      playerTiles.forEach((tile) => {
+        tile.removeEventListener('mouseover', lightShipHolder);
+      });
+    }
+    lightShip(event, rotated, ships[currShip][0]);
+  };
+
   const placeShipHolder = (event) => {
-    placeTheShip(event, rotated, playerBoard, ships[i][0], ships[i][1]);
-    i++;
-    if (i === 5) {
+    let coord = event.target.dataset.value;
+    let length = ships[currShip][0];
+    let placeable = false;
+    for (let i = 0; i < length; i++) {
+      const coordSplit = coord.split('');
+      if (rotated && Number(coord.charCodeAt(0)) + i < 73) {
+        coordSplit[0] = String.fromCharCode(Number(coord.charCodeAt(0)) + i);
+        if (playerBoard.checkCoordinate(coordSplit.join('')).shipID !== null) {
+          placeable = false;
+          break;
+        }
+        placeable = true;
+      } else if (!rotated && Number(coord.charAt(1)) + i < 9) {
+        coordSplit[1] = Number(coord.charAt(1)) + i;
+        if (playerBoard.checkCoordinate(coordSplit.join('')).shipID !== null) {
+          placeable = false;
+          break;
+        }
+        placeable = true;
+      } else {
+        placeable = false;
+      }
+    }
+    if (placeable === true) {
+      placeTheShip(
+        event,
+        rotated,
+        playerBoard,
+        ships[currShip][0],
+        ships[currShip][1]
+      );
+      currShip++;
+    } else {
+      console.log('cannot place ship here!');
+    }
+
+    if (currShip >= 5) {
       playerTiles.forEach((tile) => {
         tile.removeEventListener('click', placeShipHolder);
       });
     }
   };
   playerTiles.forEach((tile) => {
-    tile.addEventListener('mouseover', lightShip);
+    tile.addEventListener('mouseover', lightShipHolder);
+  });
+  playerTiles.forEach((tile) => {
+    tile.addEventListener('mouseout', removeHighlightHolder);
   });
   playerTiles.forEach((tile) => {
     tile.addEventListener('click', placeShipHolder);
@@ -124,14 +212,17 @@ const App = () => {
   const start = document.querySelector('.start');
   const playerTurn = document.querySelector('.playerTurn');
 
-  start.addEventListener('click', () => {
+  const gameStart = () => {
     playerTurn.classList.add('animate-arrow');
     if (status() === true) {
+      player.removeChild(rotateButton);
       Game(playerBoard, enemyBoard);
+      start.removeEventListener('click', gameStart);
     } else if (status() === false) {
       console.log('not all ships placed yet');
     }
-  });
+  };
+  start.addEventListener('click', gameStart);
 };
 
 App();
