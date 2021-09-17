@@ -10,3 +10,8 @@ Things I can Improve On
 
 1. Should have created a check tile function on GameBoard earlier, which just returns coordinate. Used a lot in checks and it would have been an extremely useful helper function.
 2. Plan ahead. Similar to the point above and test driven development, I need to sit down and whiteboard/write out a small blueprint before I start the next process or I just end up with a lot of repitition which could easily be avoided with helper functions and placing functions in a more appropriate slot.
+
+What I should add
+
+1. Some messages telling player to place ship and invalid ship placement.
+2. Tell player what ship they are placing.
