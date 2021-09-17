@@ -39,6 +39,11 @@ const Game = (playerBoard, enemyBoard) => {
   const enemyDOM = document.getElementById('enemy');
   const enemyTiles = enemyDOM.querySelectorAll('.tile');
   const userDOM = document.getElementById('user');
+  const startButton = document.querySelector('.start');
+  startButton.textContent = 'Restart';
+  startButton.addEventListener('click', (event) => {
+    window.location.reload();
+  });
 
   //listener callback to clean up listener or remove depending on turn
   const doClick = (event) => {
